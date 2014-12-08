@@ -1,0 +1,7 @@
+.idea/
+node_modules/
+.monitor
+config/env/env.json
+Makefile
+swapswop/bin/
+swapswop/node_modules/
