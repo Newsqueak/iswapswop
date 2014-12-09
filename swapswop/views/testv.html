@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name=��format-detection�� content=��telephone=no��/>
+    <!--not treat any number as a phone number-->
+
+    <meta name=��apple-mobile-web-app-capable�� content=��yes��/>
+    <meta name=��apple-mobile-web-app-status-bar-style�� content=��black��/>
+
+    <meta charset="utf-8">
+    <title>Transforming video</title>
+    <script>
+        var a = 0;
+        function myPause() {
+            a++;
+            var myVideo = document.getElementById("vvv");
+            if (a % 2 === 1) {
+                myVideo.pause();
+            } else {
+                myVideo.play();
+            }
+        }
+
+        function myForward() {
+            var myVideo = document.getElementById("vvv");
+            myVideo.currentTime = myVideo.currentTime + 80;
+        }
+
+        function myBack() {
+
+        }
+
+    </script>
+</head>
+<body>
+<div id="boundary">
+    <header><h1>Transforming HTML5 video with CSS3</h1></header>
+
+    <div id="stage">
+        <video id="vvv" width="100%" height="10%" poster="foo.jpg" preload autoplay controls>
+            <source src="http://122.228.215.146/music.qqvideo.tc.qq.com/r0015u9s9x4.mp4" type="video/mp4">
+            //
+            <source src="http://www.archive.org/download/felix_the_cat_the_goos_that_laid_the_golden_egg/felix_the_cat_the_goos_that_laid_the_golden_egg.ogv"
+                    type="video/ogg">
+        </video>
+    </div>
+
+</div>
+<input type="button" value="diandiandian" onclick="myPause();">
+<input type="button" value="diandian" onclick="myForward();">
+<input type="button" value="dian" onclick="myBack();">
+
+
+<!--<script>alert(navigator.appVersion)</script>-->
+</body>
+</html>
+
