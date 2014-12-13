@@ -11,7 +11,7 @@ var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var csrf = require('csurf');
-var multer = require('multer');
+var busboy = require('connect-busboy');
 var swig = require('swig');
 
 var mongoStore = require('connect-mongo')(session);
@@ -64,20 +64,20 @@ module.exports = function (app, passport) {
 
     // set views path, template engine and default layout
     app.engine('html', swig.renderFile);
-    app.set('views', config.root + '/app/views');
+    app.set('views', config.root + '/views');
     app.set('view engine', 'html');
 
-    // expose package.json to views
-    app.use(function (req, res, next) {
-        res.locals.pkg = pkg;
-        res.locals.env = env;
-        next();
-    });
+    //// expose package.json to views
+    //app.use(function (req, res, next) {
+    //    res.locals.pkg = pkg;
+    //    res.locals.env = env;
+    //    next();
+    //});
 
     // bodyParser should be above methodOverride
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: true}));
-    app.use(multer());
+    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(busboy());
     app.use(methodOverride(function (req, res) {
         if (req.body && typeof req.body === 'object' && '_method' in req.body) {
             // look in urlencoded POST bodies and delete it
@@ -89,7 +89,7 @@ module.exports = function (app, passport) {
 
     // CookieParser should be above session
     app.use(cookieParser());
-    app.use(cookieSession({secret: 'secret'}));
+    app.use(cookieSession({secret: 'secret'})); //TODO: change the secret
     app.use(session({
         resave: true,
         saveUninitialized: true,
@@ -100,9 +100,9 @@ module.exports = function (app, passport) {
         })
     }));
 
-    // use passport session
-    app.use(passport.initialize());
-    app.use(passport.session());
+    //// use passport session
+    //app.use(passport.initialize());
+    //app.use(passport.session());
 
     // connect flash for flash messages - should be declared after sessions
     app.use(flash());
@@ -114,7 +114,7 @@ module.exports = function (app, passport) {
     if (process.env.NODE_ENV !== 'test') {
         app.use(csrf());
 
-        // This could be moved to view-helpers :-)
+        // This could be moved to view-helpers ???)
         app.use(function (req, res, next) {
             res.locals.csrf_token = req.csrfToken();
             next();
