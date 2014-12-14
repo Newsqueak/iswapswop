@@ -7,6 +7,12 @@
 
 var vod = require('../app/action/vod');
 
+//the custom middleware of routes
+var router = require('express').Router();
+router.get("/share", vod.share);
+router.get("/play", vod.play);
+router.post("/upload", vod.upload);
+
 /**
  * Expose routes
  */
@@ -14,11 +20,7 @@ var vod = require('../app/action/vod');
 module.exports = function (app, passport) {
 
     // user routes
-    //app.use()
-
-
-
-
+    app.use("/1/vod", router);
 
     /**
      * Error handling
@@ -33,11 +35,11 @@ module.exports = function (app, passport) {
         }
         console.error(err.stack);
         // error page
-        res.status(500).render('500', {error: err.stack});
+        res.status(500).end("error:" + err.stack);
     });
 
     // assume 404 since no middleware responded
     app.use(function (req, res, next) {
-        return res.status(404).end();
+        return res.status(404).end("Page Not Found");
     });
-}
+};
