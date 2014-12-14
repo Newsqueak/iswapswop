@@ -1,5 +1,6 @@
 var utils = require("../../lib/utils");
 var userAgent = require("express-useragent");
+var fs = require("fs");
 
 var vod = {};
 
